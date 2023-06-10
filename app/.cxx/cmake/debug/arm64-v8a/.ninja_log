@@ -1,0 +1,4 @@
+# ninja log v5
+0	573	1686300171	CMakeFiles/native.dir/opensl_io.c.o	8d552b5a5f0cad04
+0	626	1686300171	CMakeFiles/native.dir/native.cpp.o	328740035403555a
+626	695	1686300171	/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative.so	e8324203e332dbcc

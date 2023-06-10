@@ -1,0 +1,3 @@
+/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cmake/debug/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cmake/debug/arm64-v8a/CMakeFiles/edit_cache.dir
+/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cmake/debug/arm64-v8a/CMakeFiles/native.dir

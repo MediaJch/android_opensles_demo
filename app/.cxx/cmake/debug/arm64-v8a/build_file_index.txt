@@ -1,0 +1,1 @@
+/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/src/main/jni/CMakeLists.txt
