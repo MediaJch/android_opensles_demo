@@ -11,12 +11,12 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    String[] pers = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO};
+    String[] pers = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO};
     private OpenSLRecorder recorder;
     private OpenSLPlayer player;
     private SpeexUtils speexUtils;
     private AudioUtils audioUtils;
-    CheckBox cb1,cb2;
+    CheckBox cb1, cb2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         recorder = new OpenSLRecorder();
         player = new OpenSLPlayer();
         speexUtils = new SpeexUtils();
-        audioUtils= new AudioUtils();
+        audioUtils = new AudioUtils();
     }
 
 
@@ -39,35 +39,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void startToRecord(){
-        if(!recorder.startToRecord(Common.SAMPLERATE,Common.PERIOD_TIME,Common.CHANNELS,Common.DEFAULT_PCM_FILE_PATH(getApplicationContext()))){
-            Toast.makeText(MainActivity.this,"Already in recording state!",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(MainActivity.this,"Start recording!",Toast.LENGTH_SHORT).show();
+    public void startToRecord() {
+        if (!recorder.startToRecord(getApplicationContext(), Common.SAMPLERATE, Common.PERIOD_TIME, Common.CHANNELS, Common.DEFAULT_PCM_FILE_PATH(getApplicationContext()))) {
+            Toast.makeText(MainActivity.this, "Already in recording state!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this, "Start recording!", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void stopRecord(View view) {
-        if(!recorder.stopRecording()){
-            Toast.makeText(MainActivity.this,"Not in recording state!",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(MainActivity.this,"Recording stopped!",Toast.LENGTH_SHORT).show();
+        if (!recorder.stopRecording()) {
+            Toast.makeText(MainActivity.this, "Not in recording state!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this, "Recording stopped!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void requestPermissions(){
-        if(isLollipop()) {
+    private void requestPermissions() {
+        if (isLollipop()) {
             requestPermissions(pers, 0);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode==0){
-            if(hasPermission()){
+        if (requestCode == 0) {
+            if (hasPermission()) {
                 startToRecord();
-            }else{
-                Toast.makeText(MainActivity.this,"Unable to get permissions",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, "Unable to get permissions", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -78,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private boolean hasPermission(String[] pers) {
-        if(isLollipop()){
-            for(String per:pers){
-                if(checkSelfPermission(per)!= PackageManager.PERMISSION_GRANTED){
+        if (isLollipop()) {
+            for (String per : pers) {
+                if (checkSelfPermission(per) != PackageManager.PERMISSION_GRANTED) {
                     return false;
                 }
             }
@@ -88,60 +88,60 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean isLollipop(){
-        return Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP_MR1;
+    private boolean isLollipop() {
+        return Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1;
     }
 
 
     public void startPlay(View view) {
-        if(!player.startToPlay(Common.SAMPLERATE,Common.PERIOD_TIME,Common.CHANNELS,Common.DEFAULT_PCM_FILE_PATH(getApplicationContext()))){
-            Toast.makeText(MainActivity.this,"Is playing!",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(MainActivity.this,"Start playing!",Toast.LENGTH_SHORT).show();
+        if (!player.startToPlay(getApplicationContext(), Common.SAMPLERATE, Common.PERIOD_TIME, Common.CHANNELS, Common.DEFAULT_PCM_FILE_PATH(getApplicationContext()))) {
+            Toast.makeText(MainActivity.this, "Is playing!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this, "Start playing!", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void stopPlay(View view) {
-        if(!player.stopPlaying()){
-            Toast.makeText(MainActivity.this,"Not playing!",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(MainActivity.this,"Playing stopped!",Toast.LENGTH_SHORT).show();
+        if (!player.stopPlaying()) {
+            Toast.makeText(MainActivity.this, "Not playing!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this, "Playing stopped!", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void encodeWithSpeex(View view) {
-        speexUtils.encode(Common.DEFAULT_PCM_FILE_PATH(getApplicationContext()),Common.DEFAULT_SPEEX_FILE_PATH(getApplicationContext()));
+        speexUtils.encode(Common.DEFAULT_PCM_FILE_PATH(getApplicationContext()), Common.DEFAULT_SPEEX_FILE_PATH(getApplicationContext()));
     }
 
     public void decodeWithSpeex(View view) {
-        speexUtils.decode(Common.DEFAULT_SPEEX_FILE_PATH(getApplicationContext()),Common.DEFAULT_PCM_OUTPUT_FILE_PATH(getApplicationContext()));
+        speexUtils.decode(Common.DEFAULT_SPEEX_FILE_PATH(getApplicationContext()), Common.DEFAULT_PCM_OUTPUT_FILE_PATH(getApplicationContext()));
     }
 
     public void playOutpuPCM(View view) {
-        if(!player.startToPlay(Common.SAMPLERATE,Common.PERIOD_TIME,Common.CHANNELS,Common.DEFAULT_PCM_OUTPUT_FILE_PATH(getApplicationContext()))){
-            Toast.makeText(MainActivity.this,"Is playing!",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(MainActivity.this,"Start playing!",Toast.LENGTH_SHORT).show();
+        if (!player.startToPlay(getApplicationContext(), Common.SAMPLERATE, Common.PERIOD_TIME, Common.CHANNELS, Common.DEFAULT_PCM_OUTPUT_FILE_PATH(getApplicationContext()))) {
+            Toast.makeText(MainActivity.this, "Is playing!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this, "Start playing!", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void recordAndPlayPCM(View view) {
-        if (!hasPermission()){
+        if (!hasPermission()) {
             requestPermissions();
             return;
         }
-        if(!audioUtils.recordAndPlayPCM(cb1.isChecked(),cb2.isChecked())){
-            Toast.makeText(MainActivity.this,"Is recording and playing!",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(MainActivity.this,"Start recording and playing!",Toast.LENGTH_SHORT).show();
+        if (!audioUtils.recordAndPlayPCM(getApplicationContext(), cb1.isChecked(), cb2.isChecked(), Common.PERIOD_TIME, Common.SAMPLERATE, Common.CHANNELS)) {
+            Toast.makeText(MainActivity.this, "Is recording and playing!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this, "Start recording and playing!", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void stopRecordAndPlayPCM(View view) {
-        if(!audioUtils.stopRecordAndPlay()){
-            Toast.makeText(MainActivity.this,"not in recording and playing state!",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(MainActivity.this,"recording and playing stoped!",Toast.LENGTH_SHORT).show();
+        if (!audioUtils.stopRecordAndPlay()) {
+            Toast.makeText(MainActivity.this, "not in recording and playing state!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this, "recording and playing stoped!", Toast.LENGTH_SHORT).show();
         }
     }
 }

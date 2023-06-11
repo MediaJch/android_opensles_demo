@@ -1,5 +1,7 @@
 package dev.mars.openslesdemo;
 
+import android.content.Context;
+
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,7 +17,7 @@ public class OpenSLPlayer {
         nativeBridge= new NativeLib();
     }
 
-    public boolean startToPlay(final int sampleRate, final int period, final int channels, final String path){
+    public boolean startToPlay(final Context context, final int sampleRate, final int period, final int channels, final String path){
         if(nativeBridge.isPlaying())
             return false;
         else{
@@ -23,7 +25,7 @@ public class OpenSLPlayer {
                 @Override
                 public void run() {
                     try {
-                        nativeBridge.playRecording(sampleRate,period,channels,new String(path.getBytes(),"UTF-8"));
+                        nativeBridge.playRecording(context, sampleRate,period,channels,new String(path.getBytes(),"UTF-8"));
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }

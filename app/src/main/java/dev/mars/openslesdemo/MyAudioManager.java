@@ -20,11 +20,20 @@ public class MyAudioManager {
 
 
 
-    static int getInputBufferSize(
-            Context context, AudioManager audioManager, int sampleRate, int numberOfInputChannels) {
+    static int getLatencyInputBufferSize(
+            Context context, int sampleRate, int numberOfInputChannels) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         return isLowLatencyInputSupported(context)
                 ? getLowLatencyFramesPerBuffer(audioManager)
                 : getMinInputFrameSize(sampleRate, numberOfInputChannels);
+    }
+
+
+    static int getLatencyOutputBufferSize(Context context, int sampleRate, int channels){
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        return isLowLatencyOutputSupported(context)
+                ? getLowLatencyFramesPerBuffer(audioManager)
+                : getMinOutputFrameSize(sampleRate, channels);
     }
 
     private static int getLowLatencyFramesPerBuffer(AudioManager audioManager) {

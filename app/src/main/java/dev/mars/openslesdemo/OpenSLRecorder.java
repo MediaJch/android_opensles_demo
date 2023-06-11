@@ -1,5 +1,7 @@
 package dev.mars.openslesdemo;
 
+import android.content.Context;
+
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,7 +17,7 @@ public class OpenSLRecorder {
         nativeBridge= new NativeLib();
     }
 
-    public boolean startToRecord(final int sampleRate, final int period, final int channels, final String path){
+    public boolean startToRecord(final Context context, final int sampleRate, final int period, final int channels, final String path){
         if(nativeBridge.isRecording())
             return false;
         else{
@@ -24,7 +26,7 @@ public class OpenSLRecorder {
                 public void run() {
                     int bufferSize = sampleRate*period*channels/1000;
                     try {
-                        nativeBridge.startRecording(sampleRate,period,channels,new String(path.getBytes(),"UTF-8"));
+                        nativeBridge.startRecording(context, sampleRate,period,channels,new String(path.getBytes(),"UTF-8"));
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }

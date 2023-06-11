@@ -1,0 +1,1 @@
+ninja: error: '/home/jch/work/workspace/as/openlses_demo/app/src/main/jnilibs/armeabi-v7a/libspeex.so', needed by '/home/jch/work/workspace/as/openlses_demo/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative.so', missing and no known rule to make it

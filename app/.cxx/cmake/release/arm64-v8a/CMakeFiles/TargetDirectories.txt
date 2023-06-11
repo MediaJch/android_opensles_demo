@@ -1,0 +1,3 @@
+/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/release/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/release/arm64-v8a/CMakeFiles/edit_cache.dir
+/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/release/arm64-v8a/CMakeFiles/native.dir

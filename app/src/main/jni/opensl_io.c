@@ -28,6 +28,7 @@
 
 #include "opensl_io.h"
 #include "log.h"
+#include <stdio.h>
 
 #define CONV16BIT 32768
 #define CONVMYFLT (1./32768.)
@@ -489,7 +490,7 @@ uint32_t android_AudioOut(OPENSL_STREAM *p, uint16_t *buffer, uint32_t size) {
     for (i = 0; i < size; i++) {
         outBuffer[index++] = (uint16_t) (buffer[i]);
         if (index >= p->outBufSamples) {
-            waitThreadLock(p->outlock);
+//            waitThreadLock(p->outlock);
             (*p->bqPlayerBufferQueue)->Enqueue(p->bqPlayerBufferQueue,
                                                outBuffer, bufsamps * sizeof(uint16_t));
             p->currentOutputBuffer = (p->currentOutputBuffer ? 0 : 1);

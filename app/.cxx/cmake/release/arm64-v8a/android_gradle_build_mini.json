@@ -1,0 +1,36 @@
+{
+  "buildFiles": [
+    "/home/jch/work/workspace/as/openlses_demo/app/src/main/jni/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/jch/work/android/sdk/cmake/3.10.2.4988404/bin/ninja",
+      "-C",
+      "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/release/arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/jch/work/android/sdk/cmake/3.10.2.4988404/bin/ninja",
+    "-C",
+    "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/release/arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "native-Release-arm64-v8a": {
+      "artifactName": "native",
+      "buildCommandComponents": [
+        "/home/jch/work/android/sdk/cmake/3.10.2.4988404/bin/ninja",
+        "-C",
+        "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/release/arm64-v8a",
+        "native"
+      ],
+      "abi": "arm64-v8a",
+      "output": "/home/jch/work/workspace/as/openlses_demo/app/build/intermediates/cmake/release/obj/arm64-v8a/libnative.so",
+      "runtimeFiles": [
+        "/home/jch/work/workspace/as/openlses_demo/app/src/main/jnilibs/arm64-v8a/libspeex.so",
+        "/home/jch/work/workspace/as/openlses_demo/app/src/main/jnilibs/arm64-v8a/libspeexdsp.so"
+      ]
+    }
+  }
+}

@@ -6,12 +6,12 @@
     "deprecated": false,
     "default": true
   },
-  "originalCxxBuildFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cmake/debug/arm64-v8a",
-  "cxxBuildFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cmake/debug/arm64-v8a",
+  "originalCxxBuildFolder": "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/debug/arm64-v8a",
+  "cxxBuildFolder": "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/debug/arm64-v8a",
   "abiPlatformVersion": 16,
   "cmake": {
-    "cmakeWrappingBaseFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cxx/debug/arm64-v8a",
-    "cmakeArtifactsBaseFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cmake/debug/arm64-v8a",
+    "cmakeWrappingBaseFolder": "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cxx/debug/arm64-v8a",
+    "cmakeArtifactsBaseFolder": "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/debug/arm64-v8a",
     "effectiveConfiguration": {
       "name": "traditional-android-studio-cmake-environment",
       "description": "Composite reified CMakeSettings configuration",
@@ -19,13 +19,13 @@
       "inheritEnvironments": [
         "ndk"
       ],
-      "buildRoot": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cmake/debug/arm64-v8a",
-      "cmakeToolchain": "/home/viazj/work/android/SDK/ndk/21.4.7075529/build/cmake/android.toolchain.cmake",
-      "cmakeExecutable": "/home/viazj/work/android/SDK/cmake/3.10.2.4988404/bin/cmake",
+      "buildRoot": "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/debug/arm64-v8a",
+      "cmakeToolchain": "/home/jch/work/android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake",
+      "cmakeExecutable": "/home/jch/work/android/sdk/cmake/3.10.2.4988404/bin/cmake",
       "variables": [
         {
           "name": "CMAKE_FIND_ROOT_PATH",
-          "value": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cmake/debug/prefab/arm64-v8a/prefab"
+          "value": "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/debug/prefab/arm64-v8a/prefab"
         },
         {
           "name": "CMAKE_BUILD_TYPE",
@@ -33,7 +33,7 @@
         },
         {
           "name": "CMAKE_TOOLCHAIN_FILE",
-          "value": "/home/viazj/work/android/SDK/ndk/21.4.7075529/build/cmake/android.toolchain.cmake"
+          "value": "/home/jch/work/android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake"
         },
         {
           "name": "ANDROID_ABI",
@@ -41,7 +41,7 @@
         },
         {
           "name": "ANDROID_NDK",
-          "value": "/home/viazj/work/android/SDK/ndk/21.4.7075529"
+          "value": "/home/jch/work/android/sdk/ndk/21.4.7075529"
         },
         {
           "name": "ANDROID_PLATFORM",
@@ -53,7 +53,7 @@
         },
         {
           "name": "CMAKE_ANDROID_NDK",
-          "value": "/home/viazj/work/android/SDK/ndk/21.4.7075529"
+          "value": "/home/jch/work/android/sdk/ndk/21.4.7075529"
         },
         {
           "name": "CMAKE_EXPORT_COMPILE_COMMANDS",
@@ -61,15 +61,15 @@
         },
         {
           "name": "CMAKE_LIBRARY_OUTPUT_DIRECTORY",
-          "value": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/build/intermediates/cmake/debug/obj/arm64-v8a"
+          "value": "/home/jch/work/workspace/as/openlses_demo/app/build/intermediates/cmake/debug/obj/arm64-v8a"
         },
         {
           "name": "CMAKE_RUNTIME_OUTPUT_DIRECTORY",
-          "value": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/build/intermediates/cmake/debug/obj/arm64-v8a"
+          "value": "/home/jch/work/workspace/as/openlses_demo/app/build/intermediates/cmake/debug/obj/arm64-v8a"
         },
         {
           "name": "CMAKE_MAKE_PROGRAM",
-          "value": "/home/viazj/work/android/SDK/cmake/3.10.2.4988404/bin/ninja"
+          "value": "/home/jch/work/android/sdk/cmake/3.10.2.4988404/bin/ninja"
         },
         {
           "name": "CMAKE_SYSTEM_NAME",
@@ -85,7 +85,7 @@
         }
       ]
     },
-    "cmakeServerLogFile": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cmake/debug/arm64-v8a/cmake_server_log.txt"
+    "cmakeServerLogFile": "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/debug/arm64-v8a/cmake_server_log.txt"
   },
   "variant": {
     "buildSystemArgumentList": [
@@ -94,8 +94,8 @@
     "cFlagsList": [],
     "cppFlagsList": [],
     "variantName": "debug",
-    "objFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/build/intermediates/cmake/debug/obj",
-    "soFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/build/intermediates/cmake/debug/lib",
+    "objFolder": "/home/jch/work/workspace/as/openlses_demo/app/build/intermediates/cmake/debug/obj",
+    "soFolder": "/home/jch/work/workspace/as/openlses_demo/app/build/intermediates/cmake/debug/lib",
     "isDebuggableEnabled": true,
     "validAbiList": [
       "ARM64_V8A"
@@ -104,15 +104,15 @@
     "implicitBuildTargetSet": [],
     "cmakeSettingsConfiguration": "android-gradle-plugin-predetermined-name",
     "module": {
-      "cxxFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx",
+      "cxxFolder": "/home/jch/work/workspace/as/openlses_demo/app/.cxx",
       "splitsAbiFilterSet": [],
-      "intermediatesFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/build/intermediates",
+      "intermediatesFolder": "/home/jch/work/workspace/as/openlses_demo/app/build/intermediates",
       "gradleModulePathName": ":app",
-      "moduleRootFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app",
-      "moduleBuildFile": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/build.gradle",
-      "makeFile": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/src/main/jni/CMakeLists.txt",
+      "moduleRootFolder": "/home/jch/work/workspace/as/openlses_demo/app",
+      "moduleBuildFile": "/home/jch/work/workspace/as/openlses_demo/app/build.gradle",
+      "makeFile": "/home/jch/work/workspace/as/openlses_demo/app/src/main/jni/CMakeLists.txt",
       "buildSystem": "CMAKE",
-      "ndkFolder": "/home/viazj/work/android/SDK/ndk/21.4.7075529",
+      "ndkFolder": "/home/jch/work/android/sdk/ndk/21.4.7075529",
       "ndkVersion": "21.4.7075529",
       "ndkSupportedAbiList": [
         "ARMEABI_V7A",
@@ -175,31 +175,31 @@
           "default": true
         }
       ],
-      "originalCmakeToolchainFile": "/home/viazj/work/android/SDK/ndk/21.4.7075529/build/cmake/android.toolchain.cmake",
-      "cmakeToolchainFile": "/home/viazj/work/android/SDK/ndk/21.4.7075529/build/cmake/android.toolchain.cmake",
+      "originalCmakeToolchainFile": "/home/jch/work/android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake",
+      "cmakeToolchainFile": "/home/jch/work/android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake",
       "cmake": {
         "isValidCmakeAvailable": true,
-        "cmakeExe": "/home/viazj/work/android/SDK/cmake/3.10.2.4988404/bin/cmake",
+        "cmakeExe": "/home/jch/work/android/sdk/cmake/3.10.2.4988404/bin/cmake",
         "minimumCmakeVersion": "3.10.2",
-        "ninjaExe": "/home/viazj/work/android/SDK/cmake/3.10.2.4988404/bin/ninja",
+        "ninjaExe": "/home/jch/work/android/sdk/cmake/3.10.2.4988404/bin/ninja",
         "isPreferCmakeFileApiEnabled": true
       },
       "stlSharedObjectMap": {
         "LIBCXX_SHARED": {
-          "ARMEABI_V7A": "/home/viazj/work/android/SDK/ndk/21.4.7075529/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/libc++_shared.so",
-          "ARM64_V8A": "/home/viazj/work/android/SDK/ndk/21.4.7075529/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so",
-          "X86": "/home/viazj/work/android/SDK/ndk/21.4.7075529/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/i686-linux-android/libc++_shared.so",
-          "X86_64": "/home/viazj/work/android/SDK/ndk/21.4.7075529/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/x86_64-linux-android/libc++_shared.so"
+          "ARMEABI_V7A": "/home/jch/work/android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/libc++_shared.so",
+          "ARM64_V8A": "/home/jch/work/android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so",
+          "X86": "/home/jch/work/android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/i686-linux-android/libc++_shared.so",
+          "X86_64": "/home/jch/work/android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/x86_64-linux-android/libc++_shared.so"
         },
         "LIBCXX_STATIC": {},
         "NONE": {},
         "SYSTEM": {}
       },
       "project": {
-        "rootBuildGradleFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo",
-        "cxxFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/.cxx",
-        "compilerSettingsCacheFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/.cxx",
-        "sdkFolder": "/home/viazj/work/android/SDK",
+        "rootBuildGradleFolder": "/home/jch/work/workspace/as/openlses_demo",
+        "cxxFolder": "/home/jch/work/workspace/as/openlses_demo/.cxx",
+        "compilerSettingsCacheFolder": "/home/jch/work/workspace/as/openlses_demo/.cxx",
+        "sdkFolder": "/home/jch/work/android/sdk",
         "isNativeCompilerSettingsCacheEnabled": false,
         "isBuildOnlyTargetAbiEnabled": true,
         "ideBuildTargetAbi": "arm64-v8a,armeabi-v7a,armeabi",
@@ -209,10 +209,10 @@
       },
       "nativeBuildOutputLevel": "QUIET"
     },
-    "prefabDirectory": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cmake/debug/prefab"
+    "prefabDirectory": "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/debug/prefab"
   },
   "buildSettings": {
     "environmentVariables": []
   },
-  "prefabFolder": "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cmake/debug/prefab/arm64-v8a"
+  "prefabFolder": "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/debug/prefab/arm64-v8a"
 }

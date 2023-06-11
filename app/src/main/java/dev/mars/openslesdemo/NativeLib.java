@@ -1,5 +1,7 @@
 package dev.mars.openslesdemo;
 
+import android.content.Context;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -41,14 +43,14 @@ public class NativeLib {
         return isRecordAndPlay.get();
     }
 
-    public native void startRecording(int sampleRate, int period, int channels, String path);
+    public native void startRecording(Context context, int sampleRate, int period, int channels, String path);
     public native void stopRecording();
-    public native void playRecording(int sampleRate, int period, int channels, String path);
+    public native void playRecording(Context context, int sampleRate, int period, int channels, String path);
     public native void stopPlaying();
     public native int encode(String pcm,String speex);
     public native int decode(String speex,String pcm);
 
-    public native int recordAndPlayPCM(boolean enableProcess,boolean enableEchoCancel);
+    public native int recordAndPlayPCM(Context context, boolean enableProcess,boolean enableEchoCancel, int period, int sampleRate, int channels);
 
     public native int stopRecordingAndPlaying() ;
 }

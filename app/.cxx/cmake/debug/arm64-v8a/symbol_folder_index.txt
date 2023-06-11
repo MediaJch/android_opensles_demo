@@ -1,1 +1,1 @@
-/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/build/intermediates/cmake/debug/obj/arm64-v8a
+/home/jch/work/workspace/as/openlses_demo/app/build/intermediates/cmake/debug/obj/arm64-v8a

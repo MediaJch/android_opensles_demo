@@ -1,4 +1,4 @@
-# Install script for directory: /home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/src/main/jni
+# Install script for directory: /home/jch/work/workspace/as/openlses_demo/app/src/main/jni
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/viazj/work/workspace/as/Android-OpenSLES-Demo/app/.cxx/cmake/debug/arm64-v8a/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/debug/arm64-v8a/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -34,6 +34,24 @@ extern "C" {
 #define SPEEX_FRAME_SIZE 160
 #define TAIL 1024
 
+int getLatencyOutputBufferSize(JNIEnv *env, jobject jContext, int sampleRate, int channels) {
+    jclass clazz = env->FindClass("dev/mars/openslesdemo/MyAudioManager");
+    jmethodID mIdGetOutBufferSize = env->GetStaticMethodID(clazz, "getLatencyOutputBufferSize",
+                                                           "(Landroid/content/Context;II)I");
+    jint frameSize = env->CallStaticIntMethod(clazz, mIdGetOutBufferSize, jContext, sampleRate,
+                                              channels);
+    return frameSize;
+}
+
+int getLatencyInputBufferSize(JNIEnv *env, jobject jContext, int sampleRate, int channels) {
+    jclass clazz = env->FindClass("dev/mars/openslesdemo/MyAudioManager");
+    jmethodID mIdGetInBufferFrameSize = env->GetStaticMethodID(clazz, "getLatencyInputBufferSize",
+                                                               "(Landroid/content/Context;II)I");
+    jint frameSize = env->CallStaticIntMethod(clazz, mIdGetInBufferFrameSize, jContext, sampleRate,
+                                              channels);
+    return frameSize;
+}
+
 
 JNIEXPORT jint JNICALL
 Java_dev_mars_openslesdemo_NativeLib_stopRecordingAndPlaying(JNIEnv *env, jobject instance) {
@@ -43,16 +61,24 @@ Java_dev_mars_openslesdemo_NativeLib_stopRecordingAndPlaying(JNIEnv *env, jobjec
 
 JNIEXPORT jint JNICALL
 Java_dev_mars_openslesdemo_NativeLib_recordAndPlayPCM(JNIEnv *env, jobject instance,
+                                                      jobject jContext,
                                                       jboolean enableProcess,
-                                                      jboolean enableEchoCancel) {
+                                                      jboolean enableEchoCancel, jint periodBuffer,
+                                                      jint sampleRate, jint channels) {
     bool initEchoBuffer = false;
     SpeexPreprocessState *preprocess_state;
     SpeexEchoState *echo_state;
-    spx_int16_t echo_buf[SPEEX_FRAME_SIZE], echo_canceled_buf[SPEEX_FRAME_SIZE];
-    int sampleRate = 8000;
+    int latencyInBufferFrames = getLatencyInputBufferSize(env, jContext, sampleRate, channels);
+    int latencyOutBufferFrames = getLatencyOutputBufferSize(env, jContext, sampleRate, channels);
+//    int sampleRate = 8000;
+    int framesOfDeliverBuffer = periodBuffer * sampleRate / 1000;
+//    int framesOfDeliverBuffer = latencyInBufferFrames;
+    int bytesPerFrame = channels * 2;
+    int bytesPerBuffer = framesOfDeliverBuffer * bytesPerFrame;
+    spx_int16_t echo_buf[framesOfDeliverBuffer], echo_canceled_buf[framesOfDeliverBuffer];
     if (enableEchoCancel) {
 
-        echo_state = speex_echo_state_init(SPEEX_FRAME_SIZE, TAIL);
+        echo_state = speex_echo_state_init(bytesPerBuffer, TAIL);
         if (echo_state == NULL) {
             LOG("speex_echo_state_init failed");
             return -3;
@@ -65,7 +91,7 @@ Java_dev_mars_openslesdemo_NativeLib_recordAndPlayPCM(JNIEnv *env, jobject insta
         * 音频处理器初始化 start
         */
 
-        preprocess_state = speex_preprocess_state_init(SPEEX_FRAME_SIZE,
+        preprocess_state = speex_preprocess_state_init(framesOfDeliverBuffer,
                                                        sampleRate);
         spx_int32_t denoise = 1;
 //SPEEX_PREPROCESS_SET_DENOISE Turns denoising on(1) or off(2) (spx_int32_t)
@@ -96,7 +122,7 @@ Java_dev_mars_openslesdemo_NativeLib_recordAndPlayPCM(JNIEnv *env, jobject insta
             return -1;
         } else {
             LOG("speex_preprocess_state_init  speex_frame_size = %d sampleRate = %d ",
-                SPEEX_FRAME_SIZE, sampleRate);
+                framesOfDeliverBuffer, sampleRate);
         }
 
         /**
@@ -111,9 +137,10 @@ Java_dev_mars_openslesdemo_NativeLib_recordAndPlayPCM(JNIEnv *env, jobject insta
 
 
     //参数依次为采样率、频道数量、录入频道数量、播放频道数量，每帧的大学，模式
-    OPENSL_STREAM *stream_record = android_OpenAudioDevice(sampleRate, 1, 1,
-                                                           SPEEX_FRAME_SIZE, RECORD_MODE);
-    OPENSL_STREAM *stream_play = android_OpenAudioDevice(sampleRate, 1, 1, SPEEX_FRAME_SIZE,
+    OPENSL_STREAM *stream_record = android_OpenAudioDevice(sampleRate, channels, channels,
+                                                           framesOfDeliverBuffer, RECORD_MODE);
+    OPENSL_STREAM *stream_play = android_OpenAudioDevice(sampleRate, channels, channels,
+                                                         latencyOutBufferFrames,
                                                          PLAY_MODE);
     if (stream_play == NULL || stream_record == NULL) {
         LOG("stream_record or stream_play open failed!");
@@ -131,10 +158,11 @@ Java_dev_mars_openslesdemo_NativeLib_recordAndPlayPCM(JNIEnv *env, jobject insta
     env->CallVoidMethod(instance, method_id_setIsRecordingAndPlaying, true);
     uint32_t samples;
     //缓冲数组,单位usigned short,16bit
-    uint16_t buffer[SPEEX_FRAME_SIZE];
+    size_t samplesPerBuffer = framesOfDeliverBuffer * channels;
+    uint16_t buffer[samplesPerBuffer];
     recording_playing = 0;
     while (!recording_playing) {
-        samples = android_AudioIn(stream_record, buffer, SPEEX_FRAME_SIZE);
+        samples = android_AudioIn(stream_record, buffer, samplesPerBuffer);
         if (samples < 0) {
             LOG("android_AudioIn failed !\n");
             break;
@@ -149,7 +177,7 @@ Java_dev_mars_openslesdemo_NativeLib_recordAndPlayPCM(JNIEnv *env, jobject insta
              */
             //第二个参数就是上一次播放的音频数据
             speex_echo_cancellation(echo_state, ptr, echo_buf, echo_canceled_buf);
-            for (int i = 0; i < SPEEX_FRAME_SIZE; i++) {
+            for (int i = 0; i < framesOfDeliverBuffer; i++) {
                 *(ptr + i) = echo_canceled_buf[i];
             }
         }
@@ -167,11 +195,11 @@ Java_dev_mars_openslesdemo_NativeLib_recordAndPlayPCM(JNIEnv *env, jobject insta
         if (enableEchoCancel) {
             //将播放的录音数据作为回声消除的第二个参数
             initEchoBuffer = true;
-            for (int i = 0; i < SPEEX_FRAME_SIZE; i++) {
+            for (int i = 0; i < framesOfDeliverBuffer; i++) {
                 echo_buf[i] = *(ptr + i);
             }
         }
-        samples = android_AudioOut(stream_play, buffer, SPEEX_FRAME_SIZE);
+        samples = android_AudioOut(stream_play, buffer, samplesPerBuffer);
         if (samples < 0) {
             LOG("android_AudioOut failed !\n");
         }
@@ -343,7 +371,8 @@ Java_dev_mars_openslesdemo_NativeLib_decode(JNIEnv *env, jobject instance, jstri
 }
 
 JNIEXPORT void JNICALL
-Java_dev_mars_openslesdemo_NativeLib_startRecording(JNIEnv *env, jobject instance, jint sampleRate,
+Java_dev_mars_openslesdemo_NativeLib_startRecording(JNIEnv *env, jobject instance, jobject jContext,
+                                                    jint sampleRate,
                                                     jint periodTime, jint channels,
                                                     jstring audioPath) {
     time_t t1, t2;
@@ -366,9 +395,12 @@ Java_dev_mars_openslesdemo_NativeLib_startRecording(JNIEnv *env, jobject instanc
         LOG("open file %s", audio_path);
     }
 
+//    int latencyBufferFrames = getLatencyInputBufferSize(env, jContext, sampleRate, channels);
+
     //参数依次为采样率、频道数量、录入频道数量、播放频道数量，每帧的大学，模式
-    uint32_t FRAME_SIZE = sampleRate * periodTime / 1000;
-    OPENSL_STREAM *stream = android_OpenAudioDevice(sampleRate, channels, channels, FRAME_SIZE,
+    uint32_t latencyBufferFrames = sampleRate * periodTime / 1000;
+    OPENSL_STREAM *stream = android_OpenAudioDevice(sampleRate, channels, channels,
+                                                    latencyBufferFrames,
                                                     RECORD_MODE);
     if (stream == NULL) {
         fclose(fp);
@@ -381,7 +413,7 @@ Java_dev_mars_openslesdemo_NativeLib_startRecording(JNIEnv *env, jobject instanc
     env->CallVoidMethod(instance, method_id_setIsRecording, true);
     uint32_t samples;
     //缓冲数组,单位usigned short,16bit
-    uint32_t BUFFER_SIZE = FRAME_SIZE * channels;
+    uint32_t BUFFER_SIZE = latencyBufferFrames * channels;
     uint16_t buffer[BUFFER_SIZE];
     g_loop_exit = 0;
     while (!g_loop_exit) {
@@ -409,8 +441,6 @@ Java_dev_mars_openslesdemo_NativeLib_startRecording(JNIEnv *env, jobject instanc
 
 }
 
-int getInputBufferSize(JNIEnv *env, jobject context,)
-
 JNIEXPORT
 void JNICALL
 Java_dev_mars_openslesdemo_NativeLib_stopRecording(JNIEnv *env, jobject instance) {
@@ -418,7 +448,8 @@ Java_dev_mars_openslesdemo_NativeLib_stopRecording(JNIEnv *env, jobject instance
 }
 
 JNIEXPORT void JNICALL
-Java_dev_mars_openslesdemo_NativeLib_playRecording(JNIEnv *env, jobject instance, jint sampleRate,
+Java_dev_mars_openslesdemo_NativeLib_playRecording(JNIEnv *env, jobject instance, jobject jContext,
+                                                   jint sampleRate,
                                                    jint periodTime, jint channels,
                                                    jstring audioPath) {
     const char *audio_path = env->GetStringUTFChars(audioPath, NULL);
@@ -435,8 +466,10 @@ Java_dev_mars_openslesdemo_NativeLib_playRecording(JNIEnv *env, jobject instance
         LOG("open file %s", audio_path);
     }
 
-    uint32_t FRAME_SIZE = sampleRate * periodTime / 1000;
-    OPENSL_STREAM *stream = android_OpenAudioDevice(sampleRate, channels, channels, FRAME_SIZE,
+//    uint32_t FRAME_SIZE = sampleRate * periodTime / 1000;
+    int latencyBufferFrames = getLatencyOutputBufferSize(env, jContext, sampleRate, channels);
+    OPENSL_STREAM *stream = android_OpenAudioDevice(sampleRate, channels, channels,
+                                                    latencyBufferFrames,
                                                     PLAY_MODE);
     if (stream == NULL) {
         fclose(fp);
@@ -447,7 +480,7 @@ Java_dev_mars_openslesdemo_NativeLib_playRecording(JNIEnv *env, jobject instance
     LOG("In playing state");
     env->CallVoidMethod(instance, method_id_setIsPlaying, true);
     int samples;
-    int BUFFER_SIZE = FRAME_SIZE * channels;
+    int BUFFER_SIZE = latencyBufferFrames * channels;
     uint16_t buffer[BUFFER_SIZE];
     g_loop_exit = 0;
     while (!g_loop_exit && !feof(fp)) {
@@ -469,27 +502,9 @@ Java_dev_mars_openslesdemo_NativeLib_playRecording(JNIEnv *env, jobject instance
     return;
 }
 
-jint JNI_OnLoad(JavaVM *vm, void *resreved) {
-
-}
-
-char className[20] = {""};
-static int android_print(JNIEnv *env, jclass clazz) {
-    printf("helloworld");
-}
-
-static JNINativeMethod gMethods[]{
-        {"", "()V", (void *) android_print},
-};
-
-void loadClass(JavaVM *vm, void *reserved) {
-    JNIEnv *env = NULL;
-
-    jclass clazz = (env)->FindClass((const char *) className);
-    if ((env)->RegisterNatives(clazz, gMethods, 1) < 0) {
-        return;
-    }
-}
+//jint JNI_OnLoad(JavaVM *vm, void *resreved) {
+//
+//}
 
 JNIEXPORT void JNICALL
 Java_dev_mars_openslesdemo_NativeLib_stopPlaying(JNIEnv *env, jobject instance) {
