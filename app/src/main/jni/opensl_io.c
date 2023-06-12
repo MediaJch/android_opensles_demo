@@ -442,7 +442,7 @@ double android_GetTimestamp(OPENSL_STREAM *p) {
 
 // this callback handler is called every time a buffer finishes recording
 void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context) {
-    LOG("bqRecorderCallback");
+//    LOG("bqRecorderCallback");
     OPENSL_STREAM *p = (OPENSL_STREAM *) context;
     notifyThreadLock(p->inlock);
 }
@@ -490,7 +490,7 @@ uint32_t android_AudioOut(OPENSL_STREAM *p, uint16_t *buffer, uint32_t size) {
     for (i = 0; i < size; i++) {
         outBuffer[index++] = (uint16_t) (buffer[i]);
         if (index >= p->outBufSamples) {
-//            waitThreadLock(p->outlock);
+            waitThreadLock(p->outlock);
             (*p->bqPlayerBufferQueue)->Enqueue(p->bqPlayerBufferQueue,
                                                outBuffer, bufsamps * sizeof(uint16_t));
             p->currentOutputBuffer = (p->currentOutputBuffer ? 0 : 1);

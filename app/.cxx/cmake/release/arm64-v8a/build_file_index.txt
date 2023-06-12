@@ -1,1 +1,0 @@
-/home/jch/work/workspace/as/openlses_demo/app/src/main/jni/CMakeLists.txt

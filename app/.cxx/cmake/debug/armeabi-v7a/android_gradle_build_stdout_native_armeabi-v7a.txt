@@ -1,1 +1,0 @@
-ninja: Entering directory `/home/jch/work/workspace/as/openlses_demo/app/.cxx/cmake/debug/armeabi-v7a'

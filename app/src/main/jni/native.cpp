@@ -68,8 +68,11 @@ Java_dev_mars_openslesdemo_NativeLib_recordAndPlayPCM(JNIEnv *env, jobject insta
     bool initEchoBuffer = false;
     SpeexPreprocessState *preprocess_state;
     SpeexEchoState *echo_state;
+    LOG("recordAndPlay periodTime:%d, sampleRate:%d, channels:%d enableProcess:%d, echoCancel:%d", periodBuffer, sampleRate, channels, enableProcess, enableEchoCancel);
     int latencyInBufferFrames = getLatencyInputBufferSize(env, jContext, sampleRate, channels);
+    LOG("latency input buffer frame size:%d", latencyInBufferFrames, periodBuffer, sampleRate, channels);
     int latencyOutBufferFrames = getLatencyOutputBufferSize(env, jContext, sampleRate, channels);
+    LOG("latency output buffe frame size:%d", latencyOutBufferFrames);
 //    int sampleRate = 8000;
     int framesOfDeliverBuffer = periodBuffer * sampleRate / 1000;
 //    int framesOfDeliverBuffer = latencyInBufferFrames;

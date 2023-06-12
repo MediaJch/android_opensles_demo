@@ -1,8 +1,0 @@
-{
-  "ndkVersionFromDsl": "21.4.7075529",
-  "sdkFolder": "/home/jch/work/android/sdk",
-  "sideBySideNdkFolderNames": [
-    "21.4.7075529",
-    "android-ndk-r11c"
-  ]
-}
